@@ -14,3 +14,4 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('property/store', 'PropertyController@store')->name('store');

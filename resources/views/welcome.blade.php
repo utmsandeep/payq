@@ -143,8 +143,8 @@
                                 <div class="card-body " id="bar-parent10">
 
 
-                                    <form class="form-horizontal">
-                                        
+                                    <form class="form-horizontal" action="{{ route('store') }}" method="POST">
+                                        @csrf
                                             <div class="form-group row">
                                             <label class="col-lg-4 col-md-5 control-label">  Property Name
                                             </label> 
@@ -729,7 +729,7 @@
                                                         
                             </div>
                         </div>
-                        </form>
+                      
                     </div>
                         
 
@@ -753,35 +753,37 @@
                                     <div class="card-body " id="bar-parent10">
     
     
-                                        <form class="form-horizontal">
-
+                                       
 
                                                  
                                                         <div id="room_fileds">
                                                                 <div>
                                                                  <div class='label'>Review 1:</div>
                                                                  <div class="content">          
-                                                                     <span class="form-group row"> <label class="col-lg-4 col-md-5 control-label">Name Of Person: </label><input type="text"  name="width[]" value="" /> </span>
-                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">Review Of Person:</label> <input type="text" name="length[]" value="" /></span>
-                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">DP Of Person:</label> <input type="file" name="file" value="" /></span>
-                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">Country:</label> <input type="text" name="cp" value="" /></span>
-                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">City:</label> <input type="text" name="ctp" value="" /></span>         
+                                                                     <span class="form-group row"> <label class="col-lg-4 col-md-5 control-label">Name Of Person: </label><input type="text"  name="person[]" value="" /> </span>
+                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">Review Of Person:</label> <input type="text" name="comment[]" value="" /></span>
+                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">DP Of Person:</label> <input type="file" name="dp[]" value="" /></span>
+                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">Country:</label> <input type="text" name="country[]" value="" /></span>
+                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">City:</label> <input type="text" name="city[]" value="" /></span>         
                                                                  </div>
                                                                 </div>
-                                                             </div>                                                          
+                                                             </div> 
+
+                                                                                                                      
                                                  <div class="btn-group pull-right form-group row">
                                                   <input type="button" id="more_fields" onclick="add_fields();" class="btn btn-info" value="Add atleast Ten Review +" />
                                                  </div>                         
 
-                                        </form>
+                                       
                                     </div>
                                 </div>
                             </div>
 
 
-                  
+                  <input type="submit" name="submit" value="Submit">
                     </div>
                 </div>
+            </form>
                 <!-- end page content -->
                 <!-- start chat sidebar -->
                 <div class="chat-sidebar-container" data-close-on-body-click="false">
@@ -1145,7 +1147,7 @@
         review++;
         var objTo = document.getElementById('room_fileds')
         var divtest = document.createElement("div");
-        divtest.innerHTML = '<div class="label">Review ' + review +':</div><div class="content form-group"><span class="form-group row"> <label class="col-lg-4 col-md-5 control-label">Name Of Person:</label> <input type="text" name="width[]" value="" /></span><span class="form-group row"> <label class="col-lg-4 col-md-5 control-label">Review Of person:</label> <input type="text" name="length[]" value="" /></span><span class="form-group row"><label class="col-lg-4 col-md-5 control-label">DP:</label><input type="file" name="file" value="" /></span><span class="form-group row"><label class="col-lg-4 col-md-5 control-label">Country:</label> <input type="text" name="cp" value="" /></span><span class="form-group row"><label class="col-lg-4 col-md-5 control-label">City:</label> <input type="text" name="ctp" value="" /></span></div>';
+        divtest.innerHTML = '<div class="label">Review ' + review +':</div><div class="content form-group"><span class="form-group row"> <label class="col-lg-4 col-md-5 control-label">Name Of Person:</label> <input type="text" name="person[]" value="" /></span><span class="form-group row"> <label class="col-lg-4 col-md-5 control-label">Review Of person:</label> <input type="text" name="comment[]" value="" /></span><span class="form-group row"><label class="col-lg-4 col-md-5 control-label">DP:</label><input type="file" name="dp[]" value="" /></span><span class="form-group row"><label class="col-lg-4 col-md-5 control-label">Country:</label> <input type="text" name="country[]" value="" /></span><span class="form-group row"><label class="col-lg-4 col-md-5 control-label">City:</label> <input type="text" name="city[]" value="" /></span></div>';
         
         objTo.appendChild(divtest)
     }
