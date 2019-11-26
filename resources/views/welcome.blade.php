@@ -35,8 +35,8 @@
     <!--select2-->
     <link href="{{ asset('plugins/select2/css/select2.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('plugins/select2/css/select2-bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-<link href="{{ asset('css/styles.imageuploader.css') }}" rel="stylesheet" type="text/css">
+   <!--  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css"> -->
+<!-- <link href="{{ asset('css/styles.imageuploader.css') }}" rel="stylesheet" type="text/css"> -->
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" />
     
@@ -52,9 +52,9 @@
      .form-control {
          font-size:13px;
      }
-      .uploader__submit-button , .js-uploader__submit-button{
+     /* .uploader__submit-button , .js-uploader__submit-button{
     display: none;
-  }
+  }*/
 
     </style>
 
@@ -120,9 +120,16 @@
                             </ol>
                         </div>
                     </div>
+
+                    @if ($errors->any())
+                         @foreach ($errors->all() as $error)
+                             <div>{{$error}}</div>
+                         @endforeach
+                    @endif
                 
                   
-                    
+            <form class="form-horizontal" id="propertyform" action="{{ route('store') }}" method="POST"  enctype="multipart/form-data">
+                                        @csrf
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <div class="card card-box">
@@ -142,14 +149,11 @@
                                 </div>
                                 <div class="card-body " id="bar-parent10">
 
-
-                                    <form class="form-horizontal" action="{{ route('store') }}" method="POST">
-                                        @csrf
                                             <div class="form-group row">
                                             <label class="col-lg-4 col-md-5 control-label">  Property Name
                                             </label> 
                                             <div class="col-lg-8 col-md-7">
-                                            <input name="name" type="text" class="form-control"> 
+                                            <input name="name" type="text" class="form-control" required> 
                                             </div>
                                             </div>
 
@@ -158,7 +162,7 @@
                                             <label class="col-lg-4 col-md-5 control-label">  Property Number
                                             </label> 
                                             <div class="col-lg-8 col-md-7">
-                                            <input name="number" type="text" class="form-control"> 
+                                            <input name="number" type="text" class="form-control" required=""> 
                                             </div>
                                             </div>
 
@@ -167,7 +171,7 @@
                                                     <label class="col-lg-4 col-md-5 control-label">Select Country
                                                     </label>
                                                     <div class="col-lg-8 col-md-7">
-                                                        <select class="form-control" id="selitemIcon" name="country">
+                                                        <select class="form-control" id="selitemIcon" name="property_country" required="">
                                                             <option value="">Select a country</option>
                                                             <option value="AF">Afghanistan</option>
                                                             <option value="AX">Åland Islands</option>
@@ -428,7 +432,7 @@
                                                         <label class="col-lg-4 col-md-5 control-label">Select State
                                                         </label>
                                                         <div class="col-lg-8 col-md-7">
-                                                            <select class="form-control" name="state"  select2>
+                                                            <select class="form-control" name="state"  select2 required="">
                                                                 <option value="">Select a state</option>
                                                                 <optgroup label="Alaskan/Hawaiian Time Zone">
                                                                     <option value="AK">Alaska</option>
@@ -500,7 +504,7 @@
                                             <label class="col-lg-4 col-md-5 control-label">  City
                                             </label> 
                                             <div class="col-lg-8 col-md-7">
-                                            <input name="city" type="text" class="form-control"> 
+                                            <input name="property_city" type="text" class="form-control" required> 
                                             </div>
                                             </div>
 
@@ -509,8 +513,8 @@
                                             <label class="col-lg-4 col-md-5 control-label"> Phone Number
                                             </label> 
                                             <div class="col-lg-8 col-md-7">
-                                            <input name="country_code" type="text" class="form-control" Style="width: 20%;  display: inline-block;">
-                                            <input name="phone" type="text" class="form-control" style=" width: 78%; display: inline-block;">  
+                                            <input disabled="" type="text" class="form-control" Style="width: 20%;  display: inline-block;" value="+91">
+                                            <input name="phone" pattern="[0-9]{10}" type="text" class="form-control" style=" width: 78%; display: inline-block;">  
                                             </div>
                                             </div>
 
@@ -519,7 +523,7 @@
                                             <label class="col-lg-4 col-md-5 control-label">  Address
                                             </label> 
                                             <div class="col-lg-8 col-md-7">
-                                            <input name="address" type="text" class="form-control"> 
+                                            <input name="address" type="text" class="form-control" required> 
                                             </div>
                                             </div>
 
@@ -528,7 +532,7 @@
                                             <label class="col-lg-4 col-md-5 control-label"> GPS Location
                                             </label> 
                                             <div class="col-lg-8 col-md-7">
-                                            <input name="location" type="text" class="form-control"> 
+                                            <input name="location" type="text" class="form-control" required=""> 
                                             </div>
                                             </div>   
 
@@ -536,8 +540,8 @@
                                                     <label class="col-lg-4 col-md-5 control-label">  Rent/Night
                                                     </label> 
                                                     <div class="col-lg-8 col-md-7">
-                                                    <input name="currency" type="text" class="form-control" Style="width: 20%;  display: inline-block;" value="$">
-                                                    <input name="rent" type="text" class="form-control" style=" width: 78%; display: inline-block;" >  
+                                                    <input disabled="" type="text" class="form-control" Style="width: 20%;  display: inline-block;" value="$">
+                                                    <input name="rent" type="text" class="form-control" style=" width: 78%; display: inline-block;" required="">  
                                                     </div>
                                             </div>
                                             
@@ -645,25 +649,33 @@
                                             <label class="col-lg-4 col-md-5 control-label"> Add cover Photo
                                             </label> 
                                             <div class="col-lg-8 col-md-7">
-                                            <input name="coverimage" type="file" class="form-control"> 
+                                            <input accept="image/*"  name="coverimage" type="file" class="form-control" required=""> 
                                             </div>
                                             </div>  
                                     
 
-                                        <div class="card-head">
+                                        <!-- <div class="card-head">
                                         <header>Add atleast 15 photos of Property</header>                  
-                                        </div>
-                                        <div class="card-body" id="bar-parent">
+                                        </div> -->
+
+                                         <div class="form-group row">
+                                            <label class="col-lg-4 col-md-5 control-label"> Add 15 Photos
+                                            </label> 
+                                            <div class="col-lg-8 col-md-7">
+                                            <input accept="image/*"  name="property_images[]" type="file" class="form-control" multiple> 
+                                            </div>
+                                            </div>  
+                                        <!-- <div class="card-body" id="bar-parent">
                                        
                                             <div class="uploader__box js-uploader__box l-center-box">
                 
                                             <div class="uploader__contents">
                                                 <label class="button button--secondary" for="fileinput">Select Files</label>
-                                                <input id="fileinput" class="uploader__file-input" type="file" multiple value="Select Files">
+                                                <input id="fileinput" name="property_images" class="uploader__file-input" type="file" multiple value="Select Files">
                                             </div>
                                         
                                             </div>
-                                        </div>
+                                        </div> -->
                                         
                                         <div class="form-group row">
                                                 <label class="col-lg-12 col-md-12 control-label">  Hotel Facilities
@@ -752,350 +764,44 @@
                                     </div>
                                     <div class="card-body " id="bar-parent10">
     
-    
-                                       
-
                                                  
                                                         <div id="room_fileds">
                                                                 <div>
                                                                  <div class='label'>Review 1:</div>
                                                                  <div class="content">          
-                                                                     <span class="form-group row"> <label class="col-lg-4 col-md-5 control-label">Name Of Person: </label><input type="text"  name="person[]" value="" /> </span>
-                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">Review Of Person:</label> <input type="text" name="comment[]" value="" /></span>
-                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">DP Of Person:</label> <input type="file" name="dp[]" value="" /></span>
-                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">Country:</label> <input type="text" name="country[]" value="" /></span>
-                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">City:</label> <input type="text" name="city[]" value="" /></span>         
+                                                                     <span class="form-group row"> <label class="col-lg-4 col-md-5 control-label">Name Of Person: </label><input type="text"  name="person[1]" value="" required="" /> </span>
+
+                                            <!-- <div class="form-group row">
+                                            <label class="col-lg-4 col-md-5 control-label">  Name Of Person:
+                                            </label> 
+                                            <div class="col-lg-8 col-md-7">
+                                            <input name="person[1]" type="text" class="form-control" required> 
+                                            </div>
+                                            </div> -->
+
+                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">Review Of Person:</label> <input type="text" name="comment[1]" value="" required /></span>
+                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">DP Of Person:</label> <input accept="image/*"  type="file" name="dp[1]" value="" required="" /></span>
+                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">Country:</label> <input type="text" name="country[1]" value="" required="" /></span>
+                                                                     <span class="form-group row"><label class="col-lg-4 col-md-5 control-label">City:</label> <input type="text" name="city[1]" value="" required="" /></span>         
                                                                  </div>
                                                                 </div>
                                                              </div> 
 
                                                                                                                       
                                                  <div class="btn-group pull-right form-group row">
-                                                  <input type="button" id="more_fields" onclick="add_fields();" class="btn btn-info" value="Add atleast Ten Review +" />
+                                                  <input type="button" id="more_fields"  class="btn btn-info" value="Add atleast Ten Review +" />
                                                  </div>                         
 
                                        
                                     </div>
                                 </div>
                             </div>
-
-
-                  <input type="submit" name="submit" value="Submit">
                     </div>
+                    <input type="submit" class="btn btn-success" name="submit" value="Submit">
                 </div>
+                 
             </form>
-                <!-- end page content -->
-                <!-- start chat sidebar -->
-                <div class="chat-sidebar-container" data-close-on-body-click="false">
-                <div class="chat-sidebar">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a href="#quick_sidebar_tab_1" class="nav-link active tab-icon"  data-toggle="tab">Theme
-                                </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#quick_sidebar_tab_2" class="nav-link tab-icon"  data-toggle="tab"> Chat
-                                </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#quick_sidebar_tab_3" class="nav-link tab-icon"  data-toggle="tab">  Settings
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane chat-sidebar-settings in show active animated shake" role="tabpanel" id="quick_sidebar_tab_1">
-                            <div class="slimscroll-style">
-                                <div class="theme-light-dark">
-                                    <h6>Sidebar Theme</h6>
-                                    <button type="button" data-theme="white" class="btn lightColor btn-outline btn-circle m-b-10 theme-button">Light Sidebar</button>
-                                    <button type="button" data-theme="dark" class="btn dark btn-outline btn-circle m-b-10 theme-button">Dark Sidebar</button>
-                                </div>
-                                <div class="theme-light-dark">
-                                    <h6>Sidebar Color</h6>
-                                    <ul class="list-unstyled">
-                                        <li class="complete">
-                                            <div class="theme-color sidebar-theme">
-                                                <a href="#" data-theme="white"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="dark"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="blue"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="indigo"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="cyan"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="green"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="red"><span class="head"></span><span class="cont"></span></a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <h6>Header Brand color</h6>
-                                    <ul class="list-unstyled">
-                                        <li class="theme-option">
-                                            <div class="theme-color logo-theme">
-                                                <a href="#" data-theme="logo-white"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="logo-dark"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="logo-blue"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="logo-indigo"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="logo-cyan"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="logo-green"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="logo-red"><span class="head"></span><span class="cont"></span></a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <h6>Header color</h6>
-                                    <ul class="list-unstyled">
-                                        <li class="theme-option">
-                                            <div class="theme-color header-theme">
-                                                <a href="#" data-theme="header-white"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="header-dark"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="header-blue"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="header-indigo"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="header-cyan"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="header-green"><span class="head"></span><span class="cont"></span></a>
-                                                <a href="#" data-theme="header-red"><span class="head"></span><span class="cont"></span></a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Start Doctor Chat --> 
-                        <div class="tab-pane chat-sidebar-chat animated slideInRight" id="quick_sidebar_tab_2">
-                            <div class="chat-sidebar-list">
-                                <div class="chat-sidebar-chat-users slimscroll-style" data-rail-color="#ddd" data-wrapper-class="chat-sidebar-list">
-                                    <div class="chat-header"><h5 class="list-heading">Online</h5></div>
-                                    <ul class="media-list list-items">
-                                        <li class="media"><img class="media-object" src="{{ asset('img/user/user3.jpg') }}" width="35" height="35" alt="...">
-                                            <i class="online dot"></i>
-                                            <div class="media-body">
-                                                <h5 class="media-heading">John Deo</h5>
-                                                <div class="media-heading-sub">Spine Surgeon</div>
-                                            </div>
-                                        </li>
-                                        <li class="media">
-                                            <div class="media-status">
-                                                <span class="badge badge-success">5</span>
-                                            </div> <img class="media-object" src="{{ asset('img/user/user1.jpg') }}" width="35" height="35" alt="...">
-                                            <i class="busy dot"></i>
-                                            <div class="media-body">
-                                                <h5 class="media-heading">Rajesh</h5>
-                                                <div class="media-heading-sub">Director</div>
-                                            </div>
-                                        </li>
-                                        <li class="media"><img class="media-object" src="{{ asset('img/user/user5.jpg') }}" width="35" height="35" alt="...">
-                                            <i class="away dot"></i>
-                                            <div class="media-body">
-                                                <h5 class="media-heading">Jacob Ryan</h5>
-                                                <div class="media-heading-sub">Ortho Surgeon</div>
-                                            </div>
-                                        </li>
-                                        <li class="media">
-                                            <div class="media-status">
-                                                <span class="badge badge-danger">8</span>
-                                            </div> <img class="media-object" src="{{ asset('img/user/user4.jpg') }}" width="35" height="35" alt="...">
-                                            <i class="online dot"></i>
-                                            <div class="media-body">
-                                                <h5 class="media-heading">Kehn Anderson</h5>
-                                                <div class="media-heading-sub">CEO</div>
-                                            </div>
-                                        </li>
-                                        <li class="media"><img class="media-object" src="{{ asset('img/user/user2.jpg') }}" width="35" height="35" alt="...">
-                                            <i class="busy dot"></i>
-                                            <div class="media-body">
-                                                <h5 class="media-heading">Sarah Smith</h5>
-                                                <div class="media-heading-sub">Anaesthetics</div>
-                                            </div>
-                                        </li>
-                                        <li class="media"><img class="media-object" src="{{ asset('img/user/user7.jpg') }}" width="35" height="35" alt="...">
-                                            <i class="online dot"></i>
-                                            <div class="media-body">
-                                                <h5 class="media-heading">Vlad Cardella</h5>
-                                                <div class="media-heading-sub">Cardiologist</div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="chat-header"><h5 class="list-heading">Offline</h5></div>
-                                    <ul class="media-list list-items">
-                                        <li class="media">
-                                            <div class="media-status">
-                                                <span class="badge badge-warning">4</span>
-                                            </div> <img class="media-object" src="{{ asset('img/user/user6.jpg') }}" width="35" height="35" alt="...">
-                                            <i class="offline dot"></i>
-                                            <div class="media-body">
-                                                <h5 class="media-heading">Jennifer Maklen</h5>
-                                                <div class="media-heading-sub">Nurse</div>
-                                                <div class="media-heading-small">Last seen 01:20 AM</div>
-                                            </div>
-                                        </li>
-                                        <li class="media"><img class="media-object" src="{{ asset('img/user/user8.jpg') }}" width="35" height="35" alt="...">
-                                            <i class="offline dot"></i>
-                                            <div class="media-body">
-                                                <h5 class="media-heading">Lina Smith</h5>
-                                                <div class="media-heading-sub">Ortho Surgeon</div>
-                                                <div class="media-heading-small">Last seen 11:14 PM</div>
-                                            </div>
-                                        </li>
-                                        <li class="media">
-                                            <div class="media-status">
-                                                <span class="badge badge-success">9</span>
-                                            </div> <img class="media-object" src="{{ asset('img/user/user9.jpg') }}" width="35" height="35" alt="...">
-                                            <i class="offline dot"></i>
-                                            <div class="media-body">
-                                                <h5 class="media-heading">Jeff Adam</h5>
-                                                <div class="media-heading-sub">Compounder</div>
-                                                <div class="media-heading-small">Last seen 3:31 PM</div>
-                                            </div>
-                                        </li>
-                                        <li class="media"><img class="media-object" src="{{ asset('img/user/user10.jpg') }}" width="35" height="35" alt="...">
-                                            <i class="offline dot"></i>
-                                            <div class="media-body">
-                                                <h5 class="media-heading">Anjelina Cardella</h5>
-                                                <div class="media-heading-sub">Physiotherapist</div>
-                                                <div class="media-heading-small">Last seen 7:45 PM</div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <!-- End Doctor Chat --> 
-                        <!-- Start Setting Panel --> 
-                        <div class="tab-pane chat-sidebar-settings animated slideInUp" id="quick_sidebar_tab_3">
-                            <div class="chat-sidebar-settings-list slimscroll-style">
-                                <div class="chat-header"><h5 class="list-heading">Layout Settings</h5></div>
-                                <div class="chatpane inner-content ">
-                                    <div class="settings-list">
-                                        <div class="setting-item">
-                                            <div class="setting-text">Sidebar Position</div>
-                                            <div class="setting-set">
-                                               <select class="sidebar-pos-option form-control input-inline input-sm input-small ">
-                                                    <option value="left" selected="selected">Left</option>
-                                                    <option value="right">Right</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="setting-item">
-                                            <div class="setting-text">Header</div>
-                                            <div class="setting-set">
-                                               <select class="page-header-option form-control input-inline input-sm input-small ">
-                                                    <option value="fixed" selected="selected">Fixed</option>
-                                                    <option value="default">Default</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="setting-item">
-                                            <div class="setting-text">Sidebar Menu </div>
-                                            <div class="setting-set">
-                                               <select class="sidebar-menu-option form-control input-inline input-sm input-small ">
-                                                    <option value="accordion" selected="selected">Accordion</option>
-                                                    <option value="hover">Hover</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="setting-item">
-                                            <div class="setting-text">Footer</div>
-                                            <div class="setting-set">
-                                               <select class="page-footer-option form-control input-inline input-sm input-small ">
-                                                    <option value="fixed">Fixed</option>
-                                                    <option value="default" selected="selected">Default</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="chat-header"><h5 class="list-heading">Account Settings</h5></div>
-                                    <div class="settings-list">
-                                        <div class="setting-item">
-                                            <div class="setting-text">Notifications</div>
-                                            <div class="setting-set">
-                                                <div class="switch">
-                                                    <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" 
-                                                      for = "switch-1">
-                                                      <input type = "checkbox" id = "switch-1" 
-                                                         class = "mdl-switch__input" checked>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="setting-item">
-                                            <div class="setting-text">Show Online</div>
-                                            <div class="setting-set">
-                                                <div class="switch">
-                                                    <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" 
-                                                      for = "switch-7">
-                                                      <input type = "checkbox" id = "switch-7" 
-                                                         class = "mdl-switch__input" checked>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="setting-item">
-                                            <div class="setting-text">Status</div>
-                                            <div class="setting-set">
-                                                <div class="switch">
-                                                    <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" 
-                                                      for = "switch-2">
-                                                      <input type = "checkbox" id = "switch-2" 
-                                                         class = "mdl-switch__input" checked>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="setting-item">
-                                            <div class="setting-text">2 Steps Verification</div>
-                                            <div class="setting-set">
-                                                <div class="switch">
-                                                    <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" 
-                                                      for = "switch-3">
-                                                      <input type = "checkbox" id = "switch-3" 
-                                                         class = "mdl-switch__input" checked>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="chat-header"><h5 class="list-heading">General Settings</h5></div>
-                                    <div class="settings-list">
-                                        <div class="setting-item">
-                                            <div class="setting-text">Location</div>
-                                            <div class="setting-set">
-                                                <div class="switch">
-                                                    <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" 
-                                                      for = "switch-4">
-                                                      <input type = "checkbox" id = "switch-4" 
-                                                         class = "mdl-switch__input" checked>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="setting-item">
-                                            <div class="setting-text">Save Histry</div>
-                                            <div class="setting-set">
-                                                <div class="switch">
-                                                    <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" 
-                                                      for = "switch-5">
-                                                      <input type = "checkbox" id = "switch-5" 
-                                                         class = "mdl-switch__input" checked>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="setting-item">
-                                            <div class="setting-text">Auto Updates</div>
-                                            <div class="setting-set">
-                                                <div class="switch">
-                                                    <label class = "mdl-switch mdl-js-switch mdl-js-ripple-effect" 
-                                                      for = "switch-6">
-                                                      <input type = "checkbox" id = "switch-6" 
-                                                         class = "mdl-switch__input" checked>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                
                 <!-- end chat sidebar -->
             </div>
             <!-- end page container -->
@@ -1143,14 +849,15 @@
 
     <script>
             var review = 1;
-    function add_fields() {
+    $(document).on('click' , '#more_fields' , function(){
         review++;
         var objTo = document.getElementById('room_fileds')
         var divtest = document.createElement("div");
-        divtest.innerHTML = '<div class="label">Review ' + review +':</div><div class="content form-group"><span class="form-group row"> <label class="col-lg-4 col-md-5 control-label">Name Of Person:</label> <input type="text" name="person[]" value="" /></span><span class="form-group row"> <label class="col-lg-4 col-md-5 control-label">Review Of person:</label> <input type="text" name="comment[]" value="" /></span><span class="form-group row"><label class="col-lg-4 col-md-5 control-label">DP:</label><input type="file" name="dp[]" value="" /></span><span class="form-group row"><label class="col-lg-4 col-md-5 control-label">Country:</label> <input type="text" name="country[]" value="" /></span><span class="form-group row"><label class="col-lg-4 col-md-5 control-label">City:</label> <input type="text" name="city[]" value="" /></span></div>';
+        divtest.innerHTML = '<div class="label">Review ' + review +':</div><div class="content form-group"><span class="form-group row"> <label class="col-lg-4 col-md-5 control-label">Name Of Person:</label> <input type="text" name="person['+review+']" value="" required /></span><span class="form-group row"> <label class="col-lg-4 col-md-5 control-label">Review Of person:</label> <input type="text" name="comment['+review+']" value="" required /></span><span class="form-group row"><label class="col-lg-4 col-md-5 control-label">DP:</label><input type="file" accept="image/*"  name="dp['+review+']" value="" required /></span><span class="form-group row"><label class="col-lg-4 col-md-5 control-label">Country:</label> <input type="text" name="country['+review+']" value="" required /></span><span class="form-group row"><label class="col-lg-4 col-md-5 control-label">City:</label> <input type="text" name="city['+review+']" value="" required /></span></div>';
         
-        objTo.appendChild(divtest)
-    }
+        objTo.appendChild(divtest);
+    });
+   
             
             </script>
 
@@ -1174,6 +881,23 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
 
+            </script>
+          <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+          <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.4.0/dist/sweetalert2.all.min.js"></script> -->
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+            <script>
+           $('#propertyform').validate();
+
+           $(document).on('submit' , '#propertyform' , function(){
+               var imgs = $("[name='property_images[]']");
+               if (parseInt($(imgs).get(0).files.length) < 3){
+                 Swal.fire({
+                              icon: 'error',
+                              text: 'Upload atleast 15 photos of your property.',
+                            })
+                  return false;
+               }
+           });
             </script>
 
 

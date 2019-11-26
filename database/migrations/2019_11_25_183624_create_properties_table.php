@@ -17,9 +17,9 @@ class CreatePropertiesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('number');
-            $table->string('country');
+            $table->string('property_country');
             $table->string('state');
-            $table->string('city');
+            $table->string('property_city');
             $table->string('phone');
             $table->text('address');
             $table->text('location');
@@ -27,8 +27,8 @@ class CreatePropertiesTable extends Migration
             $table->string('rating');
             $table->string('type');
             $table->string('status');
-            $table->unsignedBigInteger('media_id')->nullable();
-            $table->text('facilities');
+            $table->unsignedBigInteger('coverimage')->nullable();
+            $table->text('facilities')->nullable();
             $table->timestamps();
         });
     }

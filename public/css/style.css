@@ -2939,7 +2939,7 @@ form.search-form-opened .btn.submit {
 }
 .checkbox,
 .form-horizontal .checkbox {
-    padding: 0
+   /* padding: 8px*/
 }
 .radio-list>label {
     display: block

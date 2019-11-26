@@ -7,7 +7,7 @@
         return this.each(function (index) {
             options = $.extend({
                 submitButtonCopy: 'Upload Selected Files',
-                instructionsCopy: 'Drag and Drop, or',
+                instructionsCopy: '',
                 furtherInstructionsCopy: 'Your can also drop more files, or',
                 selectButtonCopy: 'Select Files',
                 secondarySelectButtonCopy: 'Select More Files',
