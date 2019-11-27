@@ -110,7 +110,8 @@
                     <div class="page-bar">
                         <div class="page-title-breadcrumb">
                             <div class=" pull-left">
-                                <div class="page-title">Property Form</div>
+                                <div class="page-title">Property Form <span style="    font-size: 15px;
+    color: blue;padding-left: 10px;">   <b>(The media is being moved in public/media)</b>   </span></div>
                             </div>
                             <ol class="breadcrumb page-breadcrumb pull-right">
                                 <li><i class="fa fa-home"></i>&nbsp;<a class="parent-item" href="index.html">Home</a>&nbsp;<i class="fa fa-angle-right"></i>
@@ -153,7 +154,7 @@
                                             <label class="col-lg-4 col-md-5 control-label">  Property Name
                                             </label> 
                                             <div class="col-lg-8 col-md-7">
-                                            <input name="name" type="text" class="form-control" required> 
+                                            <input name="name" value="{{ old('name') }}" type="text" class="form-control" required> 
                                             </div>
                                             </div>
 
@@ -162,7 +163,7 @@
                                             <label class="col-lg-4 col-md-5 control-label">  Property Number
                                             </label> 
                                             <div class="col-lg-8 col-md-7">
-                                            <input name="number" type="text" class="form-control" required=""> 
+                                            <input name="number" value="{{ old('number') }}" type="text" class="form-control" required=""> 
                                             </div>
                                             </div>
 
@@ -504,7 +505,7 @@
                                             <label class="col-lg-4 col-md-5 control-label">  City
                                             </label> 
                                             <div class="col-lg-8 col-md-7">
-                                            <input name="property_city" type="text" class="form-control" required> 
+                                            <input name="property_city" value="{{ old('property_city') }}" type="text" class="form-control" required> 
                                             </div>
                                             </div>
 
@@ -514,7 +515,7 @@
                                             </label> 
                                             <div class="col-lg-8 col-md-7">
                                             <input disabled="" type="text" class="form-control" Style="width: 20%;  display: inline-block;" value="+91">
-                                            <input name="phone" pattern="[0-9]{10}" type="text" class="form-control" style=" width: 78%; display: inline-block;">  
+                                            <input name="phone" value="{{ old('phone') }}"   type="tel" pattern="^\d{10}$" class="form-control" style=" width: 78%; display: inline-block;">  
                                             </div>
                                             </div>
 
@@ -523,7 +524,7 @@
                                             <label class="col-lg-4 col-md-5 control-label">  Address
                                             </label> 
                                             <div class="col-lg-8 col-md-7">
-                                            <input name="address" type="text" class="form-control" required> 
+                                            <input name="address" value="{{ old('address') }}" type="text" class="form-control" required> 
                                             </div>
                                             </div>
 
@@ -532,7 +533,7 @@
                                             <label class="col-lg-4 col-md-5 control-label"> GPS Location
                                             </label> 
                                             <div class="col-lg-8 col-md-7">
-                                            <input name="location" type="text" class="form-control" required=""> 
+                                            <input name="location" value="{{ old('location') }}" type="text" class="form-control" required=""> 
                                             </div>
                                             </div>   
 
@@ -541,7 +542,7 @@
                                                     </label> 
                                                     <div class="col-lg-8 col-md-7">
                                                     <input disabled="" type="text" class="form-control" Style="width: 20%;  display: inline-block;" value="$">
-                                                    <input name="rent" type="text" class="form-control" style=" width: 78%; display: inline-block;" required="">  
+                                                    <input name="rent" value="{{ old('rent') }}" type="number" min="0" class="form-control" style=" width: 78%; display: inline-block;" required="">  
                                                     </div>
                                             </div>
                                             
@@ -659,7 +660,7 @@
                                         </div> -->
 
                                          <div class="form-group row">
-                                            <label class="col-lg-4 col-md-5 control-label"> Add 15 Photos
+                                            <label class="col-lg-4 col-md-5 control-label"> Add atleast 15 photos
                                             </label> 
                                             <div class="col-lg-8 col-md-7">
                                             <input accept="image/*"  name="property_images[]" type="file" class="form-control" multiple> 
@@ -890,10 +891,19 @@
 
            $(document).on('submit' , '#propertyform' , function(){
                var imgs = $("[name='property_images[]']");
-               if (parseInt($(imgs).get(0).files.length) < 3){
+               if (parseInt($(imgs).get(0).files.length) < 15){
                  Swal.fire({
                               icon: 'error',
                               text: 'Upload atleast 15 photos of your property.',
+                            })
+                  return false;
+               }
+         
+
+            if (review < 9){
+                 Swal.fire({
+                              icon: 'error',
+                              text: 'Add atleast 10 reviews of your property.',
                             })
                   return false;
                }
